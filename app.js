@@ -16,17 +16,12 @@ app.get('/weather',(req,res)=>{
         return res.send({error : "please provide a location"})
     }
     let location = req.query.q;
-    console.log(location);
     geocode(location,1,(err,geoData)=>{
-        console.log('fetching geo-data')
         if(err){
-            console.log("error -> fetching geo data");
             return  res.send({error : err});
         }
         forecast(geoData,(err,forecastData)=>{
-            console.log("fetching weather from geo data");
             if(err){
-                console.log("error -> fetching weather data");
                 return res.send({error : err})
             }
             res.send({            
@@ -44,15 +39,12 @@ app.get('/location',(req,res)=>{
         return res.send({error : "please provide a location"})
     }
     let location = req.query.q;
-    console.log(location);
-    geocode(location,10,(err,geoData)=>{
+    geocode(location,5,(err,geoData)=>{
         if(err){
-            console.log("error");
             return  res.send({error : err});
         }
-        res.send({
-            location: geoData.location
-        })
+        console.log(geoData);
+        res.send(geoData)
         
         })
 })
@@ -60,7 +52,6 @@ app.get('/location',(req,res)=>{
 // to get weather details for current position using browser api ///
 
 app.get('/geoweather',(req,res)=>{
-    console.log(req.query.lat,"/",req.query.long);
     if(!(req.query.lat) || !(req.query.long)){
         return res.send({error : "please provide a valid location"})
     }
@@ -70,10 +61,8 @@ app.get('/geoweather',(req,res)=>{
                   }
     forecast(geoData,(err,forecastData)=>{
             if(err){
-                console.log("error2");
                 return res.send({error : err})
             }
-            console.log("fetc");
             res.send({            
                 forecast: forecastData,
                 location: "cuurent location"
@@ -83,6 +72,6 @@ app.get('/geoweather',(req,res)=>{
 
     
 app.listen(port,()=>{
-    console.log("server started");
+    console.log("server started @",port);
 });
 

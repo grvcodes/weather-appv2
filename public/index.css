@@ -79,6 +79,14 @@ form.special button{
 div.main{
     position: relative;
 }
+div.loader{
+    z-index: 5;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
 div.loader div::before{
     content: " ";
     position: absolute;
@@ -153,35 +161,44 @@ div.data ul li span{
 div.locations{
     margin: 2em 2vw;
     display: flex;
-    flex-wrap: wrap;
+    overflow: auto;
     justify-content: center;
 }
 div.locations>div{
+    order: 2;
     display: inline-flex;
     flex-direction: column;
+    text-align: center;
+    text-transform: capitalize;
     justify-content: space-around;
     min-height:20vh;
     min-width: 20vh;
-    padding: 0 .2em 0 .8em;
+    padding: 0 .8em 0 .8em;
     margin: .4em 1em;
-    background-color: rgb(134, 189, 240);
-    color: rgb(255, 255, 255);
+    background-color: #3f51b5;;
+    color: #fff;
     border-radius: 5px;
-    border-left: 4px dashed rgb(0, 0, 0); 
+    border-left: 4px solid rgb(0, 0, 0); 
     box-shadow: 2px 0 5px 0 #292828;
     position: relative;
 }
-
-div.locations>div.add{
-    background-color: white;
+div.locations>h2{
+    color: rgb(214, 73, 73);
+    width: 50%;
+    margin: auto;
+    font-weight: 300;
+}
+div.locations>div.add-more{
+    order: 1;
+    background-color:  white;
     color: rgb(214, 73, 73);
     text-align: center;
     box-shadow: none;
-    border: none;
-    border-radius: 5px;
-    transform: scale(.9);
+    border: 2px solid #292828;
+    border-radius: .4em;
+    box-shadow: 4px 8px 20px #292828;
 }
-div.add a{
+div.add-more a{
     padding: 100px 10px;
 }
 div.locations>div::after{
@@ -229,6 +246,7 @@ form.addLoc-form button{
 }
 div.tab{
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
     width: 90vw;

@@ -51,9 +51,9 @@ class LocStorage {
 }
 let LOCAL = new LocStorage();
 
-let tab= loc=>{
+let tab= (loc,i)=>{
     let html = `<h3 class="display">${loc}</h3>
-                <button class = "save">save</button>`
+                <button id = ${i} class = "save">save</button>`
     return html;
 }
 
@@ -91,19 +91,43 @@ form.addEventListener("submit",(e)=>{
                 loader.classList.toggle("hide");/*add hide class to hide the loader*/
                 wrapperTo.classList.toggle("hide");/*remove hide class to display data ehen available*/
                 if(data.error){
-                    return fallback.textContent= data.error;
+                    fallback.textContent= data.error;
+                    return
                 }
-                
-                let div = document.createElement('div').innerHTML(tab('axy'))
-                tabPage.appendChild(div);
-                save = document.querySelector('button.save')
-                save.addEventListener('click',e =>{
-                    e.preventDefault();
-                    LOCAL.addLoc(display.textContent);
-                    
+        
+                    let loc = data.features;
+                    tabPage.innerHTML="";
+                    for(let i=0;i<loc.length;i++){
+                        let div = document.createElement("div");
+                        div.innerHTML = tab(loc[i].place_name,i);
+                        tabPage.appendChild(div);
+
+                    }
+                    let buttons = document.querySelectorAll("button.save")
+                    for(let i=0;i<buttons.length;i++){
+                        buttons[i].addEventListener("click",(e)=>{
+                         if(!(LOCAL.containLoc(loc[i].place_name))){
+                            
+                            buttons[i].textContent ="saving";
+                            LOCAL.addLoc(loc[i].place_name)
+                            
+                                fetch("/geoweather?lat="+loc[i].geometry.coordinates[1]+"&long="+loc[i].geometry.coordinates[0])
+                                .then((res)=>{
+                                    res.json().then((data)=>{
+                                       console.log(data);
+                                       buttons[i].textContent="saved";buttons[i].style.backgroundColor="green";
+                                       LOCAL.refresh();
+                                    })
+                                    
+                                    })
+                                }  
+                                else{
+                                    LOCAL.addLoc(loc[i].place_name)
+                                }      
+                        })
+                    }
                 })
             })
-        })
     }
     
 });

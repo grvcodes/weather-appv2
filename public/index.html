@@ -15,33 +15,30 @@
         <button type="submit">GO</button>
       </form>
     </header>
-
-    <!-- Powred by<a href="#">Dark Sky API</a> and <a href="#">Mapbox API</a> -->
-
     <div class="main">
         <!--loader -->
         <div class="loader hide">
             <div></div>
         </div>
-        <!--fallback div to display error msg(originally hidden)-->
+        <!--fallback div to display error msgs-->
         <div class="fallback" style="color:rgb(214, 73, 73);width:70vw;margin:50px auto 0;">
          
         </div>
         <!--main display div {summary,dataTab}(originally hidden)-->
         <div class="wrapperTo hide">
             <div class="container">
-                <i>icon here</i>
+                <img class="icon-top"></img>
                 <div class="locationName">Delhi,India</div>
                 <div class="summary">bright sky today</div>
             </div>    
             <div class="data">
                 <ul>
-                    <li><h4>TEMP:<span id="temp">28</span>C</h4></li>
-                    <li><h4>MAX:<span id="maxTemp">32</span>C</h4></li>
-                    <li><h4>MIN:<span id="minTemp">18</span>C</h4></li>
-                    <li><h4>Pressure:<span id="pressure">1</span>mmHg</h4></li>
-                    <li><h4>wind:<span id="wind">2</span></h4>km/h</li>
-                    <li><h4>Humidity:<span id="humidity">25</span>mm</h4></li>
+                    <li><h4>TEMP:<span id="temp"></span>C</h4></li>
+                    <li><h4>MAX:<span id="maxTemp"></span>C</h4></li>
+                    <li><h4>MIN:<span id="minTemp"></span>C</h4></li>
+                    <li><h4>Pressure:<span id="pressure"></span>mmHg</h4></li>
+                    <li><h4>wind:<span id="wind"></span></h4>km/h</li>
+                    <li><h4>Humidity:<span id="humidity"></span>mm</h4></li>
                 </ul> 
             </div>
         </div>
