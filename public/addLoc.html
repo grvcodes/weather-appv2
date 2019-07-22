@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="icon" href="./img/icon.png">
+    <title>Weather App</title>
+</head>
+<body>
+    <header>
+      <img src="./img/icon.png" alt="icon">
+    
+    </header>
+    <br>
+    <div class="addLoc-main">
+        <form class="addLoc-form">
+            <input type="text" placeholder="Type Location to search for.."></input>
+            
+            <button type="submit">search</button>
+        </form>
+        <div class="main">
+            <div class="loader hide">
+                <div></div>
+            </div>
+            <div class="fallback" style="color:rgb(214, 73, 73);width:70vw;margin:50px auto;">
+
+            </div>
+            <div class="wrapperTo hide">
+                <div class="tab">
+                    <h3 class="display">location name</h3>
+                    <button class = "save">save</button>
+                </div>
+            </div>
+        </div>       
+    </div>
+    <script src="./scripts/addLoc.js"></script>
+</body>
+</html>
