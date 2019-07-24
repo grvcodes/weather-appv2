@@ -2,6 +2,9 @@ let form = document.querySelector("form.special")
 let input = document.querySelector("input");
 
 let state =  [];
+localStorage.setItem('locations',"almora@delhi@mumbai@");
+localStorage.setItem('almora','25@12@');
+localStorage.setItem('delhi','25@12@');localStorage.setItem('mumbai','25@12@');
 let loader = document.querySelector(".loader")
 
 let fallback = document.querySelector('.fallback')
@@ -18,12 +21,6 @@ let wrapperTo = document.querySelector(".wrapperTo")/*{summary,dataTab}*/
     let humidity = document.querySelector("span#humidity")
 
 let locationTab = document.querySelector('div.locations')
-let addTab =  document.querySelector('a.addLocation')
- 
-localStorage.setItem("locations","almora@delho@almora4@")
-localStorage.setItem("almora","24@17")
-localStorage.setItem("delho","38@27")
-localStorage.setItem("almora4","34@07")
 
  if(localStorage.getItem('locations')){
      state = localStorage.getItem('locations').split("@");
@@ -118,7 +115,14 @@ window.addEventListener('load',()=>{
         fallback.textContent="permission denied."
        })
        if(state){
-           state.forEach(e=>createLocationTab(e, localStorage.getItem(e).split('@')))
+           state.forEach(e=>createLocationTab(e, localStorage.getItem(e).split('@')));
+           let addTab = document.createElement('div');
+           addTab.className= "add more";
+           addTab.innerHTML= `<a href="./addLoc.html">add location</a>`;
+           locationTab.appendChild(addTab); 
+       
+       }else{
+           locationTab.innerHTML ="you have no saved location :)"
        }
        
     

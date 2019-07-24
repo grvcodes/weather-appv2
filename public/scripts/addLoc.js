@@ -2,24 +2,28 @@ let form = document.querySelector("form")
 let input = document.querySelector("input");
 let loader = document.querySelector(".loader")
 let wrapperTo = document.querySelector(".wrapperTo")
-let display = document.querySelector("h3.display");
 let fallback = document.querySelector("div.fallback")
-let save = document.querySelector('button.save')
+let tabPage = document.querySelector("div.tab")
+
 
 let flag = false
 let state = [];
 class LocStorage {
     constructor(){
+        console.log("obj");
         if(localStorage.getItem('locations')){
             flag = true;
-            state = localStorage.getItem('locations').split(",")
+            state = localStorage.getItem('locations').split("@")
+            state.pop();
+            console.log(state);
         }
         
     }
     refresh(){
 
-        state = localStorage.getItem('locations').split(",")
-        
+        state = localStorage.getItem('locations').split("@");
+        state.pop();
+        console.log(state);
     }
     containLoc(loc){
         let flag = false;
@@ -36,7 +40,9 @@ class LocStorage {
         }
         else{
             state.push(loc);
-            localStorage.setItem('locations',state.join())
+            console.log(state,state.join("@"));
+            let str = state.join("@")+"@";
+            localStorage.setItem('locations',str)
             this.refresh()
             console.log(state)
         }
@@ -44,6 +50,12 @@ class LocStorage {
    
 }
 let LOCAL = new LocStorage();
+
+let tab= loc=>{
+    let html = `<h3 class="display">${loc}</h3>
+                <button class = "save">save</button>`
+    return html;
+}
 
 function hasClass(element,className){
     let x= element.classList;
@@ -81,18 +93,22 @@ form.addEventListener("submit",(e)=>{
                 if(data.error){
                     return fallback.textContent= data.error;
                 }
-                display.textContent = data.location;
+                
+                let div = document.createElement('div').innerHTML(tab('axy'))
+                tabPage.appendChild(div);
+                save = document.querySelector('button.save')
+                save.addEventListener('click',e =>{
+                    e.preventDefault();
+                    LOCAL.addLoc(display.textContent);
+                    
+                })
             })
         })
     }
     
 });
 
-save.addEventListener('click',e =>{
-    e.preventDefault();
-    LOCAL.addLoc(display.textContent);
-    
-})
+
 
 
 

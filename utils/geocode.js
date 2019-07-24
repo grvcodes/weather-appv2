@@ -11,11 +11,18 @@ const geocode = (location,num,callback)=>{
             callback("Unable to find location.Please be more specific by adding country or state name",undefined)
         }
         else{
+            if(num = 1){
             callback(undefined,{
-                longitude:res.body.features[0].center[0],
-                latitude:res.body.features[0].center[1],
-                location:res.body.features[0].place_name
+                    longitude:res.body.features[0].center[0],
+                    latitude:res.body.features[0].center[1],
+                    location:res.body.features[0].place_name
             })
+            }else{
+                callback(undefined,{
+                  data:res.body  
+                })
+            }
+            
         }
     })
 }
