@@ -2,9 +2,7 @@ let form = document.querySelector("form.special")
 let input = document.querySelector("input");
 
 let state =  [];
-// localStorage.setItem('locations',"almora@delhi@mumbai@");
-// localStorage.setItem('almora','25@12@');
-// localStorage.setItem('delhi','25@12@');localStorage.setItem('mumbai','25@12@');
+
 let loader = document.querySelector(".loader")
 
 let fallback = document.querySelector('.fallback')
@@ -49,7 +47,7 @@ function mainView(data){
     iconTop.src= icons[data.forecast.daily.icon] || icons["fallback"];
     humidity.textContent = data.forecast.daily.data[0].humidity;
     summary.textContent = data.forecast.hourly.summary;
-    //display gaph
+    //display graph
 }
 
 function createLocationTab(location,temp){
@@ -107,34 +105,45 @@ window.addEventListener('load',()=>{
         loader.classList.add('hide');
     })
     if(state){
-        state.forEach(e=>{
-            let temp =[]
-            temp[0]= 35 || data.forecast.daily.data[0].temperatureHigh;
-            temp[1] = 25 || data.forecast.daily.data[0].temperatureLow;
-            createLocationTab(e,temp)
-        })
+        let date = Date().split(" ")[2];
+        if(localStorage.getItem('savedWeatherDate')){
+            if (date = localStorage.getItem('savedWeatherDate')){
+                let savedData = localStorage.getItem('savedData').split(" ");
+                console.log(savedData)
+                state.forEach((e,i)=>{
+                    let temp =[]
+                    temp[0]= savedData[2*i];
+                    temp[1] = savedData[2*i + 1];
+                    createLocationTab(e,temp)
+                })
+            }
+        }else{
+            let saveData = []
+            state.forEach(e=>{
+                fetch("/weather?q="+e).then((res)=>{
+                    res.json().then((data)=>{
+                     if(!data){
+                         locationTab.innerHTML="could not load weather details.."
+                         return
+                      }
+                     if(data.error){
+                         locationTab.innerHTML="<h2>No Internet connection.Could not load weather details..</h2>"
+                         return fallback.textContent = data.error;
+                     }
+                     let temp =[]
+                     temp[0] = data.forecast.daily.data[0].temperatureHigh;
+                     temp[1] = data.forecast.daily.data[0].temperatureLow;
+                     createLocationTab(e,temp)
+                     saveData.push(temp[0],temp[1])
+                    })
+                 })
+            })
+            localStorage.setItem(saveWeatherDate,Date().split(" ")[2]);
+            localStorage.setItem('savedData',saveData.join(' '));
+        }
+    }else{
+      locationTab.innerHTML ="you have no saved location :)"
     }
-    //    state.forEach(e=>{
-    //    fetch("/weather?q="+e).then((res)=>{
-    //        res.json().then((data)=>{
-    //         if(!data){
-    //             locationTab.innerHTML="could not load weather details.."
-    //             return
-    //          }
-    //         if(data.error){
-    //             locationTab.innerHTML="<h2>No Internet connection.Could not load weather details..</h2>"
-    //             return fallback.textContent = data.error;
-    //         }
-    //         let temp =[]
-    //         temp[0]= 35 || data.forecast.daily.data[0].temperatureHigh;
-    //         temp[1] = 25 || data.forecast.daily.data[0].temperatureLow;
-    //         createLocationTab(e,temp)
-    //        })
-    //     })
-    //    })
-    // }else{
-    //    locationTab.innerHTML ="you have no saved location :)"
-    // }
     let addTab = document.createElement('div');
     addTab.className= "add-more";
     addTab.innerHTML= `<a href="./addLoc.html">add location </a>`;
