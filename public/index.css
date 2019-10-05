@@ -82,7 +82,7 @@ div.main{
 div.loader{
     z-index: 5;
     height: 100%;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -251,6 +251,7 @@ div.tab{
     width: 90vw;
 }
 div.tab div{
+    order:1;
     border-left: 2px solid rgb(214, 73, 73);
     font-size: .8rem;
     padding: 0 1em;
@@ -267,4 +268,8 @@ div.tab button{
     font-size: .8rem;
     padding: .4em 1em;
     margin: 5px;
+}
+div.new-loader{
+    text-align: center;
+    order: 2;
 }
