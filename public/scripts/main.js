@@ -26,15 +26,15 @@ let locationTab = document.querySelector('div.locations')
 let locationTabFb = document.querySelector('p.location-tab-fallback')
 
 let icons={
-    "clear":"./img/climacons-master/SVG/Sun.svg",
-    "clear-day":"./img/climacons-master/SVG/Sun.svg",
-    "clear-night":"./img/climacons-master/SVG/Sun.svg",
-    "rain":"./img/climacons-master/SVG/Cloud-Rain.svg",
-    "snow":"./img/climacons-master/SVG/Snowflake.svg",
-    "wind":"./img/climacons-master/SVG/Wind.svg",
-    "fog":"./img/climacons-master/SVG/Cloud.svg",
-    "cloudy":"./img/climacons-master/SVG/Cloud.svg",
-    "fallback":"./img/climacons-master/SVG/Thermometer.svg"
+    "clear":"./img/svg/Sun.svg",
+    "clear-day":"./img/svg/Sun.svg",
+    "clear-night":"./img/svg/Moon.svg",
+    "rain":"./img/svg/Cloud-Rain.svg",
+    "snow":"./img/svg/Snow.svg",
+    "wind":"./img/svg/Wind.svg",
+    "fog":"./img/svg/Fog.svg",
+    "cloudy":"./img/svg/Cloud.svg",
+    "fallback":"./img/svg/Sun.svg"
 }
 
 if(localStorage.getItem('locations')){

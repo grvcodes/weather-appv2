@@ -204,6 +204,11 @@ div.locations>div::after{
     top: 5%;
     left: 5%;
 }
+div.locations>div img{
+    height: 4vh;
+    width: 4vh;
+    margin: auto;
+}
 div.locations>div div.footer{
     display: flex;
     justify-content: space-between;
