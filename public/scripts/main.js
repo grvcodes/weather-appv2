@@ -107,7 +107,7 @@ window.addEventListener('load',()=>{
     if(state){
         let date = Date().split(" ")[2];
         if(localStorage.getItem('savedWeatherDate')){
-            if (date = localStorage.getItem('savedWeatherDate')){
+            if(date = localStorage.getItem('savedWeatherDate')){
                 let savedData = localStorage.getItem('savedData').split(" ");
                 console.log(savedData)
                 state.forEach((e,i)=>{
@@ -138,7 +138,7 @@ window.addEventListener('load',()=>{
                     })
                  })
             })
-            localStorage.setItem(saveWeatherDate,Date().split(" ")[2]);
+            localStorage.setItem('saveWeatherDate',Date().split(" ")[2]);
             localStorage.setItem('savedData',saveData.join(' '));
         }
     }else{
