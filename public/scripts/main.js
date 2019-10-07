@@ -1,13 +1,15 @@
+//saveWeatherDate savedData locations
 let form = document.querySelector("form.special")
 let input = document.querySelector("input");
 
 let state =  [];
 
-let loader = document.querySelector(".loader")
+let loader = document.querySelectorAll(".loader")
 
 let fallback = document.querySelector('.fallback')
 
 let wrapperTo = document.querySelector(".wrapperTo") /*{summary,dataTab}*/
+let container = document.querySelector('.container');
  
     let locationName = document.querySelector(".locationName");
     let iconTop = document.querySelector(".icon-top");
@@ -21,6 +23,8 @@ let wrapperTo = document.querySelector(".wrapperTo") /*{summary,dataTab}*/
     let humidity = document.querySelector("span#humidity")
 
 let locationTab = document.querySelector('div.locations')
+let locationTabFb = document.querySelector('p.location-tab-fallback')
+
 let icons={
     "clear":"./img/climacons-master/SVG/Sun.svg",
     "clear-day":"./img/climacons-master/SVG/Sun.svg",
@@ -32,7 +36,8 @@ let icons={
     "cloudy":"./img/climacons-master/SVG/Cloud.svg",
     "fallback":"./img/climacons-master/SVG/Thermometer.svg"
 }
- if(localStorage.getItem('locations')){
+
+if(localStorage.getItem('locations')){
      state = localStorage.getItem('locations').split("@");
      state.pop();
  }
@@ -50,9 +55,11 @@ function mainView(data){
     //display graph
 }
 
-function createLocationTab(location,temp){
+function createLocationTab(location,temp,icon){
     let div = document.createElement('div');
     let h3 = document.createElement('h3');
+    let img = document.createElement('img');
+    img.src = icons[icon] || icons["fallback"]
     h3.textContent= location;
     let divFooter = document.createElement("div");
     divFooter.classList.add("footer");
@@ -62,29 +69,23 @@ function createLocationTab(location,temp){
         h4[i].textContent=temp[i];
     }
     divFooter.append(h4[0],h4[1]);
-    div.append(h3,divFooter);
+    div.append(h3,img,divFooter);
     locationTab.appendChild(div);    
 }
 
-function hasClass(element,className){
-    let x= element.classList;
-    for(i=0;i<x.length;i++){
-        if(x[i]==className){
-            return true
-        }
-    }
-    return false
-}
 
 window.addEventListener('load',()=>{
     console.log("fetching data for current locations ->on load")
-    loader.classList.remove("hide");/*remove hide class to display the loader*/
+    loader[0].classList.remove("hide");/*remove hide class to display the loader*/
+    loader[1].classList.remove('hide');
+    container.classList.add('hide');
     fallback.textContent="";
+    locationTabFb.innerHTML="";
     navigator.geolocation.getCurrentPosition((pos)=>{
         fetch("/geoweather?lat="+pos.coords.latitude+"&long="+pos.coords.longitude).then((res)=>{
             res.json().then((data)=>{
                 if(data.error){
-                    loader.classList.add("hide");/*add hide class to hide the loader*/
+                    loader[0].classList.add("hide");/*add hide class to hide the loader*/
                     fallback.textContent= data.error;
                     console.log(data.error);
                     return;
@@ -93,8 +94,8 @@ window.addEventListener('load',()=>{
                 {
                     console.log('data arrived');
                     mainView(data);
-                    loader.classList.add("hide");/*add hide class to hide the loader*/
-                    wrapperTo.classList.remove("hide");/*remove hide class to display data when available*/
+                    loader[0].classList.add("hide");/*add hide class to hide the loader*/
+                    container.classList.remove("hide");/*remove hide class to display data when available*/
                 }}
                 )
             })
@@ -102,54 +103,69 @@ window.addEventListener('load',()=>{
         ()=>{
         console.log('accesss denied')
         fallback.textContent="permission to access location denied."
-        loader.classList.add('hide');
+        loader[0].classList.add('hide');
     })
-    if(state){
+    console.log(state,"saved locations")
+    if(state.length > 0){
+        console.log("we have saved locations")
         let date = Date().split(" ")[2];
-        if(localStorage.getItem('savedWeatherDate')){
-            if(date == localStorage.getItem('savedWeatherDate')){
+        console.log(date);
+        if(date == localStorage.getItem('savedWeatherDate')){
+                console.log('data for today is avlvl,loading frm locStore');
                 let savedData = localStorage.getItem('savedData').split(" ");
-                console.log(savedData)
+                let savedIcons = localStorage.getItem('icons').split(' ');
+                console.log(savedData,"saved data min/maxTemp");
                 state.forEach((e,i)=>{
                     let temp =[]
+                    icon = savedIcons[i]
                     temp[0]= savedData[2*i];
                     temp[1] = savedData[2*i + 1];
-                    createLocationTab(e,temp)
+                    createLocationTab(e,temp,icon)
                 })
-            }
+                loader[1].classList.add('hide')
         }else{
-            let saveData = []
+            console.log('saved locatioins but no saved data')
+            let saveData = [];
+            let icons = []
             state.forEach(e=>{
                 fetch("/weather?q="+e).then((res)=>{
                     res.json().then((data)=>{
                      if(!data){
-                         locationTab.innerHTML="could not load weather details.."
+                         loader[1].classList.add('hide')
+                         locationTabFb.innerHTML="could not load weather details.."
                          return
                       }
                      if(data.error){
-                         locationTab.innerHTML="<h2>No Internet connection.Could not load weather details..</h2>"
-                         return fallback.textContent = data.error;
+                         loader[1].classList.add('hide')
+                         locationTabFb.innerHTML="<h2>No Internet connection,Could not load weather details..</h2>"
+                         return
                      }
                      let temp =[]
+                     let icon = data.forecast.daily.data[0].icon; 
                      temp[0] = data.forecast.daily.data[0].temperatureHigh;
                      temp[1] = data.forecast.daily.data[0].temperatureLow;
-                     createLocationTab(e,temp)
+                     createLocationTab(e,temp,icon)
                      saveData.push(temp[0],temp[1])
+                     icons.push(icon)
                     })
                  })
             })
+            loader[1].classList.add('hide');
             if(saveData.length !== 0){
                 localStorage.setItem('saveWeatherDate',Date().split(" ")[2]);
                 localStorage.setItem('savedData',saveData.join(' '));
+                localStorage.setItem('icons',icons.join(' '));
             }
         }
     }else{
-      locationTab.innerHTML ="you have no saved location :)"
+       console.log('no saved locations');
+       loader[1].classList.add('hide');
+       locationTabFb.innerHTML ="you have no saved location :)"
     }
-    let addTab = document.createElement('div');
-    addTab.className= "add-more";
-    addTab.innerHTML= `<a href="./addLoc.html">add location </a>`;
-    locationTab.appendChild(addTab);  
+    // let addTab = document.createElement('div');
+    // addTab.className= "add-more";
+    // addTab.innerHTML= `<a href="./addLoc.html">add location </a>`;
+    // locationTab.appendChild(addTab);  
 })
 
 

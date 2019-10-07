@@ -16,36 +16,40 @@
       </form>
     </header>
     <div class="main">
-        <!--loader -->
-        <div class="loader hide">
-            <div></div>
-        </div>
         <!--fallback div to display error msgs-->
         <div class="fallback" style="color:rgb(214, 73, 73);width:70vw;margin:50px auto 0;">
          
         </div>
         <!--main display div {summary,dataTab}(originally hidden)-->
-        <div class="wrapperTo hide">
-            <div class="container">
-                <img class="icon-top"></img>
-                <div class="locationName">Delhi,India</div>
-                <div class="summary">bright sky today</div>
-            </div>    
-            <div class="data">
-                <ul>
-                    <li><h4>TEMP:<span id="temp"></span>C</h4></li>
-                    <li><h4>MAX:<span id="maxTemp"></span>C</h4></li>
-                    <li><h4>MIN:<span id="minTemp"></span>C</h4></li>
-                    <li><h4>Pressure:<span id="pressure"></span>mmHg</h4></li>
-                    <li><h4>wind:<span id="wind"></span></h4>km/h</li>
-                    <li><h4>Humidity:<span id="humidity"></span>mm</h4></li>
-                </ul> 
+        <div class="wrapperTo">
+                <div class="loader hide"></div>
+            <div class="container hide">
+                <div class="banner">
+                    <img class="icon-top"></img>
+                    <div class="locationName">Delhi,India</div>
+                    <div class="summary">bright sky today</div>
+                </div>    
+                <div class="data">
+                    <ul>
+                        <li><h4>TEMP:<span id="temp"></span>C</h4></li>
+                        <li><h4>MAX:<span id="maxTemp"></span>C</h4></li>
+                        <li><h4>MIN:<span id="minTemp"></span>C</h4></li>
+                        <li><h4>Pressure:<span id="pressure"></span>mmHg</h4></li>
+                        <li><h4>wind:<span id="wind"></span></h4>km/h</li>
+                        <li><h4>Humidity:<span id="humidity"></span>mm</h4></li>
+                    </ul> 
+                </div>
             </div>
         </div>
         <div>
             <h2 style= "margin: 1em 2em 0;">Saved Locations</h2>
+            <p class = "location-tab-fallback"></p>
+            <div class="loader hide"></div>
             <div class ="locations">
-    
+                
+            </div>
+            <div class='add-more'>
+                <a href='./addLoc.html'>+</a>
             </div>
         </div>
     </div>
