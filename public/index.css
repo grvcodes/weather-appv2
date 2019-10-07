@@ -165,7 +165,6 @@ div.locations{
     justify-content: center;
 }
 div.locations>div{
-    order: 2;
     display: inline-flex;
     flex-direction: column;
     text-align: center;
@@ -189,17 +188,17 @@ div.locations>h2{
     font-weight: 300;
 }
 div.locations>div.add-more{
-    order: 1;
-    background-color:  white;
-    color: rgb(214, 73, 73);
-    text-align: center;
+    background-color: antiquewhite;
+    border: none;
     box-shadow: none;
-    border: 2px solid #292828;
-    border-radius: .4em;
-    box-shadow: 4px 8px 20px #292828;
+}
+div.locations>div.add-more::after{
+    display: none;
 }
 div.add-more a{
     padding: 100px 10px;
+    color: #292828;
+    text-decoration: none;
 }
 div.locations>div::after{
     content: "";
