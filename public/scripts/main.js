@@ -130,11 +130,6 @@ window.addEventListener('load',()=>{
             state.forEach(e=>{
                 fetch("/weather?q="+e).then((res)=>{
                     res.json().then((data)=>{
-                     if(!data){
-                         loader[1].classList.add('hide')
-                         locationTabFb.innerHTML="could not load weather details.."
-                         return
-                      }
                      if(data.error){
                          loader[1].classList.add('hide')
                          locationTabFb.innerHTML="<h2>No Internet connection,Could not load weather details..</h2>"
@@ -175,33 +170,27 @@ window.addEventListener('load',()=>{
 form.addEventListener("submit",(e)=>{
     e.preventDefault();
     fallback.textContent="";
-    loader.classList.remove('hide');
-    wrapperTo.classList.add('hide');
+    loader[0].classList.remove('hide');
+    container.classList.add('hide');
     
     let location = input.value;
     if(! location){
-        loader.classList.add("hide");
+        loader[0].classList.add("hide");
         fallback.textContent =  "please provide a location to search for..."; 
         return;
     }
     fetch("/weather?q="+location).then((res)=>{
             res.json().then((data)=>{
-                if(!data){
-                   loader.classList.add("hide");
-                   fallback.textContent="no internet connection";
-                   return
-                }
                 if(data.error){
-                    loader.classList.add("hide");
+                    console.log(data.error)
+                    loader[0].classList.add("hide");
                     fallback.textContent= data.error
                     return 
                 }
                 console.log(data,"from form")
                 mainView(data)
-                loader.classList.add("hide");
-                wrapperTo.classList.remove("hide");
+                loader[0].classList.add("hide");
+                container.classList.remove("hide");
             })
         })
-    
-
 })
