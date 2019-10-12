@@ -4,8 +4,7 @@ let wrapperTo = document.querySelector(".wrapperTo")
 let fallback = document.querySelector("div.fallback")
 let tabPage = document.querySelector("div.tab")
 
-let loader = document.createElement('div');
-loader.classList.add('new-loader');
+let loader = document.querySelector('div.add-loader');
 
 let flag = false
 let state = [];
@@ -61,16 +60,16 @@ form.addEventListener("submit",(e)=>{
 
     e.preventDefault();
     fallback.textContent = "";
-    tabPage.appendChild(loader).textContent="Loading...";
+    loader.classList.remove('hide')
     let location = input.value;
     if(!location){
+        loader.classList.add('hide')
         fallback.textContent = "please enter a location";
-        tabPage.removeChild(loader);
     }else{
         fetch("/location?q="+location).then((res)=>{
             res.json().then((data)=>{
                 if(data.error){
-                    tabPage.removeChild(loader);
+                    loader.classList.add('hide')
                     fallback.textContent= data.error;
                     return
                 }
@@ -81,6 +80,7 @@ form.addEventListener("submit",(e)=>{
                     div.innerHTML = tab(loc[i].place_name,i);
                     tabPage.appendChild(div);
                 }
+                loader.classList.add('hide')
                 let buttons = document.querySelectorAll("button.save")
                 for(let i=0;i<buttons.length;i++){
                     buttons[i].addEventListener("click",(e)=>{

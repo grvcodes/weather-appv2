@@ -145,7 +145,7 @@ div.data ul li span{
     margin-left: 0.5em;
 }
 .hide{
-    display: none;
+    display: none !important;
 }
 div.locations{
     margin: .8em 2vw;
@@ -276,7 +276,24 @@ div.tab button{
     padding: .4em 1em;
     margin: 5px;
 }
-div.new-loader{
-    text-align: center;
-    order: 2;
+div.add-loader div{
+    margin: 1em auto;
+    width: 70%;
+    border:none;
+    height: 15vh;
+    animation: color-change 1500ms ease-in infinite;
+    background-image:linear-gradient(to right,rgba(68, 68, 68,0.2) 40%,rgba(68, 68, 68,0.4));
+    background-size: 200% 100%;
+    background-position: 0%; 
+}
+@keyframes color-change{
+    0%{
+        background-position: 0%; 
+    }
+    50%{
+        background-position: 100%;
+    }
+    100%{
+        background-position: 0%;
+    }
 }
