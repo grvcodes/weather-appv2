@@ -24,18 +24,18 @@ header{
     font-size: 1rem;
     font-family: monospace;
     margin: 0;
-    padding: .2em 2em;
+    padding: .2em .8em;
     background-color: #292828;
 }
 header img{
-    margin: 0 1em 0 .5rem;
+    height: 10vw;
+    width: 10vw;
+    margin: 0 .6em 0 .5rem;
     flex: 0; 
-    padding: .5em 1em .2em .2em;
 }
 a.addLocation{
     margin: 1em 2em 0;
     font-size: 1.2rem;
-    color: dodgerblue;
 }
 form.special{
     flex: 1 1 0;
@@ -148,7 +148,7 @@ div.data ul li span{
     display: none;
 }
 div.locations{
-    margin: 2em 2vw;
+    margin: .8em 2vw;
     display: flex;
     overflow: auto;
 }
@@ -181,18 +181,27 @@ div.add-more{
     align-items: center;
     height: 15vh;
     width: 15vh;
-    background-color: antiquewhite;
+    background-color: rgb(255, 255, 255);
     border: none;
     box-shadow: none;
     margin: auto;
 }
 p.location-tab-fallback{
-    margin: .8em auto;
-    width: fit-content;
+    margin: .8em auto 0;
+    width: 60vw;
+    color: #292828;
 }
 div.add-more a{
     color: #292828;
     text-decoration: none;
+    background-color: rgb(240, 240, 239);
+    border-radius: 50%;
+    border-bottom: 1px solid #292828;
+    padding: 1em;
+}
+div.add-more img{
+    height: 5vh;
+    width: 5vh;
 }
 div.locations>div::after{
     content: "";

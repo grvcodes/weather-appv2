@@ -102,7 +102,7 @@ window.addEventListener('load',()=>{
         },
         ()=>{
         console.log('accesss denied')
-        fallback.textContent="permission to access location denied."
+        fallback.textContent="permission to access location denied or no internet connection"
         loader[0].classList.add('hide');
     })
     console.log(state,"saved locations")
@@ -153,17 +153,11 @@ window.addEventListener('load',()=>{
             }
         }
     }else{
-       console.log('no saved locations');
+       console.log('No saved locations');
        loader[1].classList.add('hide');
-       locationTabFb.innerHTML ="you have no saved location :)"
+       locationTabFb.innerHTML ="No saved location."
     }
-    // let addTab = document.createElement('div');
-    // addTab.className= "add-more";
-    // addTab.innerHTML= `<a href="./addLoc.html">add location </a>`;
-    // locationTab.appendChild(addTab);  
 })
-
-
 
 ///display weather details on form serarch ////
 
