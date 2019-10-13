@@ -11,9 +11,9 @@ let fallback = document.querySelector('.fallback')
 let wrapperTo = document.querySelector(".wrapperTo") /*{summary,dataTab}*/
 let container = document.querySelector('.container');
  
-    let locationName = document.querySelector(".locationName");
+    let locationName = document.querySelector("h3.locationName");
     let iconTop = document.querySelector(".icon-top");
-    let summary = document.querySelector("div.summary")
+    let summary = document.querySelector("p.summary")
     
     let temp = document.querySelectorAll("span#temp")
     let maxTemp = document.querySelector("span#maxTemp")
@@ -55,12 +55,16 @@ function mainView(data){
     //display graph
 }
 
-function createLocationTab(location,temp,icon){
+function createLocationTab(location,temp,icon,summ){
     let div = document.createElement('div');
     let h3 = document.createElement('h3');
+    let p = document.createElement('p');
     let img = document.createElement('img');
+
     img.src = icons[icon] || icons["fallback"]
     h3.textContent= location;
+    p.innerHTML = summ;
+
     let divFooter = document.createElement("div");
     divFooter.classList.add("footer");
     let h4=[];
@@ -69,7 +73,7 @@ function createLocationTab(location,temp,icon){
         h4[i].textContent=temp[i];
     }
     divFooter.append(h4[0],h4[1]);
-    div.append(h3,img,divFooter);
+    div.append(h3,img,p,divFooter);
     locationTab.appendChild(div);    
 }
 
@@ -114,13 +118,16 @@ window.addEventListener('load',()=>{
                 console.log('data for today is avlvl,loading frm locStore');
                 let savedData = localStorage.getItem('savedData').split(" ");
                 let savedIcons = localStorage.getItem('icons').split(' ');
-                console.log(savedData,"saved data min/maxTemp");
+                let savedSumm = localStorage.getItem('summary').split('@');
+                savedSumm.pop();
+                console.log(savedData,"saved data min/maxTemp",savedSumm);
                 state.forEach((e,i)=>{
                     let temp =[]
                     icon = savedIcons[i]
+                    summary = savedSumm[i]
                     temp[0]= savedData[2*i];
                     temp[1] = savedData[2*i + 1];
-                    createLocationTab(e,temp,icon)
+                    createLocationTab(e,temp,icon,summary)
                 })
                 loader[1].classList.add('hide')
         }else{
@@ -139,6 +146,7 @@ window.addEventListener('load',()=>{
                      let icon = data.forecast.daily.data[0].icon; 
                      temp[0] = data.forecast.daily.data[0].temperatureHigh;
                      temp[1] = data.forecast.daily.data[0].temperatureLow;
+                     let summary = data.forecast.daily.icon;
                      createLocationTab(e,temp,icon)
                      saveData.push(temp[0],temp[1])
                      icons.push(icon)

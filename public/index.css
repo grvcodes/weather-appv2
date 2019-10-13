@@ -104,7 +104,21 @@ div.container>div.banner{
     align-items: center;
     margin: 1px auto;
     font-size: 1rem;
-    padding: 1em 2em;
+    padding: 1em .4em;
+}
+div.banner img{
+    height: 10vw;
+    width: 10vw;
+    margin-right: 1em;
+}
+div.banner h3{
+    margin: 0;
+    font-size: .8em;
+}
+div.banner p{
+    margin: .1em;
+    font-size: .6em;
+    color: #292828;
 }
 div.container .locationName{
     flex: 0 0 50px;
@@ -144,9 +158,9 @@ div.data ul li span{
     font-size: 1.5rem;
     margin-left: 0.5em;
 }
-.hide{
+/* .hide{
     display: none !important;
-}
+} */
 div.locations{
     margin: .8em 2vw;
     display: flex;
@@ -160,20 +174,14 @@ div.locations>div{
     justify-content: space-around;
     min-height:20vh;
     min-width: 20vh;
-    padding: 0 .8em 0 .8em;
+    padding: 0 .8em .6em;
     margin: .4em 1em;
     background-color: #2196F3;
-    color: #fff;
-    border-radius: 5px;
+    color: #292828;
+    border-radius: .2em;
     border-left: 4px solid rgb(0, 0, 0); 
     box-shadow: 2px 0 5px 0 #292828;
     position: relative;
-}
-div.locations>h2{
-    color: rgb(214, 73, 73);
-    width: 50%;
-    margin: auto;
-    font-weight: 300;
 }
 div.add-more{
     display: flex;
@@ -213,10 +221,18 @@ div.locations>div::after{
     top: 5%;
     left: 5%;
 }
+div.locations>div p{
+    font-size: .8em;
+    width: 60%;
+    height: 4em;
+    margin: .1em auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 div.locations>div img{
     height: 4vh;
     width: 4vh;
-    margin: auto;
+    margin: .5em auto;
 }
 div.locations>div div.footer{
     display: flex;
