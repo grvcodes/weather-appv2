@@ -41,6 +41,31 @@ if(localStorage.getItem('locations')){
      state = localStorage.getItem('locations').split("@");
      state.pop();
  }
+ let displayGraph = (data)=>{
+    let date = new Date(data.hourly.data[0].time)
+    let hrs = date.getHours();
+    let elements = 24 - hrs + 1;
+    let DATA = [];
+    for(i=0;i<elements;i++){
+        DATA.push(data.hourly.data[i]);
+    }
+    document.querySelector('svg').style.width= elements*50
+    console.log(DATA);
+    let maxY = d3.max(DATA,d=>d.temperature)
+    
+    let yScale = d3.scaleLinear().domain([0,maxY]).range([0,500])
+          d3.select("svg")
+            .selectAll("rect")
+            .data(data.hourly.data)
+            .enter()
+            .append('rect')
+            .attr('width',50)
+            .attr('height',d => yScale(parseInt(d.temperature)))
+            .attr('x',(d,i)=>i*50)
+            .attr('y',d=>600-yScale(parseInt(d.temperature)))
+            .style('fill',"rgb(214, 73, 73)")
+
+  } 
 
 function mainView(data){
     locationName.textContent = data.location;
@@ -52,7 +77,7 @@ function mainView(data){
     iconTop.src= icons[data.forecast.daily.icon] || icons["fallback"];
     humidity.textContent = data.forecast.daily.data[0].humidity;
     summary.textContent = data.forecast.hourly.summary;
-    //display graph
+    displayGraph(data);
 }
 
 function createLocationTab(location,temp,icon,summ){
@@ -134,6 +159,7 @@ window.addEventListener('load',()=>{
             console.log('saved locatioins but no saved data')
             let saveData = [];
             let icons = []
+            let summaries= []
             state.forEach(e=>{
                 fetch("/weather?q="+e).then((res)=>{
                     res.json().then((data)=>{
@@ -146,10 +172,11 @@ window.addEventListener('load',()=>{
                      let icon = data.forecast.daily.data[0].icon; 
                      temp[0] = data.forecast.daily.data[0].temperatureHigh;
                      temp[1] = data.forecast.daily.data[0].temperatureLow;
-                     let summary = data.forecast.daily.icon;
+                     let summary = data.forecast.hourly.summary;
                      createLocationTab(e,temp,icon)
                      saveData.push(temp[0],temp[1])
                      icons.push(icon)
+                     summaries.push(summary,'@')
                     })
                  })
             })
@@ -158,6 +185,7 @@ window.addEventListener('load',()=>{
                 localStorage.setItem('saveWeatherDate',Date().split(" ")[2]);
                 localStorage.setItem('savedData',saveData.join(' '));
                 localStorage.setItem('icons',icons.join(' '));
+                localStorage.setItem('summary',summaries)
             }
         }
     }else{
@@ -196,3 +224,31 @@ form.addEventListener("submit",(e)=>{
             })
         })
 })
+
+  let displayGraph = (data)=>{
+    let date = new Date(data.hourly.data[0].time)
+    let hrs = date.getHours();
+    let elements = 24 - hrs + 1;
+    let DATA = [];
+    for(i=0;i<elements;i++){
+        DATA.push(data.hourly.data[i]);
+    }
+    document.querySelector('svg').style.width= elements*50
+    console.log(DATA);
+    let maxY = d3.max(DATA,d=>d.temperature)
+    
+    let yScale = d3.scaleLinear().domain([0,maxY]).range([0,500])
+          d3.select("svg")
+            .selectAll("rect")
+            .data(data.hourly.data)
+            .enter()
+            .append('rect')
+            .attr('width',50)
+            .attr('height',d => yScale(parseInt(d.temperature)))
+            .attr('x',(d,i)=>i*50)
+            .attr('y',d=>600-yScale(parseInt(d.temperature)))
+            .style('fill',"rgb(214, 73, 73)")
+
+  } 
+  
+ 
