@@ -76,6 +76,7 @@ let displayGraph = (data)=>{
         .attr('stroke-width',)
 
 } 
+displayGraph(dummyData);
 
 function mainView(data){
     locationName.textContent = data.location;
@@ -87,7 +88,6 @@ function mainView(data){
     iconTop.src= icons[data.forecast.daily.icon] || icons["fallback"];
     humidity.textContent = data.forecast.daily.data[0].humidity;
     summary.textContent = data.forecast.hourly.summary;
-    displayGraph(data);
 }
 
 function createLocationTab(location,temp,icon,summ){
