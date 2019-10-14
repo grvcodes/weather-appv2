@@ -148,14 +148,13 @@ window.addEventListener('load',()=>{
     if(state.length > 0){
         console.log("we have saved locations")
         let date = Date().split(" ")[2];
-        console.log(date);
-        if(date == localStorage.getItem('savedWeatherDate')){
+        console.log(date,localStorage.getItem('savedWeatherDate'));
+        if(date == localStorage.getItem('saveWeatherDate')){
                 console.log('data for today is avlvl,loading frm locStore');
                 let savedData = localStorage.getItem('savedData').split(" ");
                 let savedIcons = localStorage.getItem('icons').split(' ');
                 let savedSumm = localStorage.getItem('summary').split('@');
-                savedSumm.pop();
-                console.log(savedData,"saved data min/maxTemp",savedSumm);
+                console.log(savedData,"saved data min/maxTemp",savedSumm,"oooo");
                 state.forEach((e,i)=>{
                     let temp =[]
                     icon = savedIcons[i]
@@ -192,6 +191,7 @@ window.addEventListener('load',()=>{
             })
             loader[1].classList.add('hide');
             if(saveData.length !== 0){
+                console.log('saving data',Date().split(" ")[2])
                 localStorage.setItem('saveWeatherDate',Date().split(" ")[2]);
                 localStorage.setItem('savedData',saveData.join(' '));
                 localStorage.setItem('icons',icons.join(' '));

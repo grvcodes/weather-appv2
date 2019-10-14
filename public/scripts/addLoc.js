@@ -106,6 +106,7 @@ form.addEventListener("submit",(e)=>{
                                    icons.push(icon)
                                    summaries.push(summary)
                                    console.log(summaries);
+                                   localStorage.setItem('saveWeatherDate',Date().split(" ")[2])
                                    localStorage.setItem('savedData',savedData.join(' '));
                                    localStorage.setItem('icons',icons.join(' '));
                                    localStorage.setItem('summary',summaries.join('@'))
