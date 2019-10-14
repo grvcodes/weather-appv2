@@ -159,14 +159,19 @@ div.data ul li span{
     margin-left: 0.5em;
 }
 div.graph{
-    width: 90%;
-    background-color: #f0f0ef;
     overflow-x: scroll;
     margin: 1em auto;
+    text-align: center;
+}
+div.graph h3{
+    font-size: .8em;
+    color: #292828;
 }
 svg{
+    display: block;
+    margin: auto;
+    background-color: #2196f326;
     height: 600px;
-    margin:auto;
 }
 /* .hide{
     display: none !important;
