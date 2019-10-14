@@ -15,7 +15,7 @@ let fallback = document.querySelector('.fallback')
 let wrapperTo = document.querySelector(".wrapperTo") /*{summary,dataTab}*/
 let container = document.querySelector('.container');
  
-    let locationName = document.querySelector("h3.locationName");
+    let locationName = document.querySelector(".locationName h3");
     let iconTop = document.querySelector(".icon-top");
     let summary = document.querySelector("p.summary")
     

@@ -49,7 +49,7 @@ class LocStorage {
    
 }
 let LOCAL = new LocStorage();
-
+let savedData=[],icons=[],summaries=[];
 let tab= (loc,i)=>{
     let html = `<h3 class="display">${loc}</h3>
                 <button id = ${i} class = "save">save</button>`
@@ -57,10 +57,11 @@ let tab= (loc,i)=>{
 }
 
 form.addEventListener("submit",(e)=>{
-    let savedData = localStorage.getItem('savedData').split(" ");
-    let savedIcons = localStorage.getItem('icons').split(' ');
-    let savedSumm = localStorage.getItem('summary').split('@');
-    savedSumm.pop();
+    
+    localStorage.getItem('savedData')?savedData = localStorage.getItem('savedData').split(" "):console.log('no saved data');
+    localStorage.getItem('icons')?icons = localStorage.getItem('icons').split(" "):console.log('no saved icons');
+    localStorage.getItem('summary')?summaries = localStorage.getItem('summary').split("@"):console.log('no saved summaries');
+    console.log(savedData,icons,summaries);
     e.preventDefault();
     fallback.textContent = "";
     loader.classList.remove('hide')
@@ -101,12 +102,13 @@ form.addEventListener("submit",(e)=>{
                                    temp[0] = data.forecast.daily.data[0].temperatureHigh;
                                    temp[1] = data.forecast.daily.data[0].temperatureLow;
                                    let summary = data.forecast.hourly.summary;
-                                   saveData.push(temp[0],temp[1])
+                                   savedData.push(temp[0],temp[1])
                                    icons.push(icon)
-                                   summaries.push(summary,'@')
-                                   localStorage.setItem('savedData',saveData.join(' '));
+                                   summaries.push(summary)
+                                   console.log(summaries);
+                                   localStorage.setItem('savedData',savedData.join(' '));
                                    localStorage.setItem('icons',icons.join(' '));
-                                   localStorage.setItem('summary',summaries)
+                                   localStorage.setItem('summary',summaries.join('@'))
                                    LOCAL.refresh();
                                    })
                             })
