@@ -64,7 +64,7 @@ form.special button{
     width: 30%;
     cursor: pointer;
 }
-div.main{
+main{
     position: relative;
 }
 div.loader{
@@ -173,9 +173,9 @@ svg{
     background-color: #2196f326;
     height: 600px;
 }
-/* .hide{
+.hide{
     display: none !important;
-} */
+}
 div.locations{
     margin: .8em 2vw;
     display: flex;
@@ -327,4 +327,33 @@ div.add-loader div{
     100%{
         background-position: 0%;
     }
+}
+section.attributions{
+    border-top: 2px solid #292828;
+    margin: 2em .2em;
+    padding: .4em .2em;
+}
+.attributions h2{
+    color: rgb(214,73,73);
+    font-size: .8em;
+}
+a{
+    color: rgb(214, 73, 73);
+    text-decoration-color: #292828;
+}
+footer{
+    font-size: .8rem;
+    min-height: 40vh;
+    background-color: #292828;
+    color: gray;
+    padding: 2em .5em;
+}
+footer ul li{
+    margin-bottom: 1em;
+}
+footer ul li a{
+    font-size: .8em;
+    margin-left: .4em;
+    text-decoration-style: dashed;
+    text-decoration-color: rgb(214,73,73);
 }

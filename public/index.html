@@ -15,13 +15,13 @@
         <button type="submit">GO</button>
       </form>
     </header>
-    <div class="main">
+    <main>
         <!--fallback div to display error msgs-->
         <div class="fallback" style="color:rgb(214, 73, 73);width:70vw;margin:50px auto 0;">
          
         </div>
         <!--main display div {summary,dataTab}(originally hidden)-->
-        <div class="wrapperTo">
+        <section class="wrapperTo">
                 <div class="loader hide"></div>
             <div class="container hide">
                 <div class="banner">
@@ -47,8 +47,8 @@
                 </div>
                 
             </div>
-        </div>
-        <div>
+        </section>
+        <section>
             <h2 style= "margin: 1em 2em 0;">Saved Locations</h2>
             <p class = "location-tab-fallback"></p>
             <div class="loader hide"></div>
@@ -58,8 +58,19 @@
             <div class='add-more'>
                 <a href='./addLoc.html'><img src = "./img/plus.svg"></a>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
+    <section class="attributions">
+      <h2>ATTRIBUTIONS:</h2>
+      <p>All icons used in this project are from <a href="#">xyz</a> </p>
+    </section>
+    <footer>
+        <ul>
+            <li> GitHub repositery:<a href = "#">github</a></li>
+            <li>Developed by -<a href="#">GRVCODES</a></li>
+            <li>Buy me a coffee - <a href="#">here</a></li>
+        </ul>
+    </footer>
     <script src="./scripts/d3.min.js"></script>
     <script src="./scripts/main.js"></script>
 </body>
