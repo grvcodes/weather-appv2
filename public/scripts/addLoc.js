@@ -57,7 +57,10 @@ let tab= (loc,i)=>{
 }
 
 form.addEventListener("submit",(e)=>{
-
+    let savedData = localStorage.getItem('savedData').split(" ");
+    let savedIcons = localStorage.getItem('icons').split(' ');
+    let savedSumm = localStorage.getItem('summary').split('@');
+    savedSumm.pop();
     e.preventDefault();
     fallback.textContent = "";
     loader.classList.remove('hide')
@@ -93,7 +96,17 @@ form.addEventListener("submit",(e)=>{
                                    console.log(data);
                                    buttons[i].textContent="saved";
                                    buttons[i].style.backgroundColor="green";
-                                   //saver weather data..
+                                   let temp =[]
+                                   let icon = data.forecast.daily.data[0].icon; 
+                                   temp[0] = data.forecast.daily.data[0].temperatureHigh;
+                                   temp[1] = data.forecast.daily.data[0].temperatureLow;
+                                   let summary = data.forecast.hourly.summary;
+                                   saveData.push(temp[0],temp[1])
+                                   icons.push(icon)
+                                   summaries.push(summary,'@')
+                                   localStorage.setItem('savedData',saveData.join(' '));
+                                   localStorage.setItem('icons',icons.join(' '));
+                                   localStorage.setItem('summary',summaries)
                                    LOCAL.refresh();
                                    })
                             })
